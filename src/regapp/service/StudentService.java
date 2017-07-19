@@ -11,7 +11,7 @@ public class StudentService {
 
 	private List<Student> students = new ArrayList<>();
 	
-	public Student createStudent(int id, String name, String statusStr) {
+	public Student createStudent(String name, String statusStr) {
 
 		Student.Status status = Student.Status.valueOf(statusStr);
 		

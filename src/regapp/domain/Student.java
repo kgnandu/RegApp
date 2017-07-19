@@ -2,7 +2,7 @@ package regapp.domain;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Student {
+public class Student implements Comparable<Student>{
 
 	public enum Status {
 		FULL_TIME(0), PART_TIME(1), HIBERNATING(2);
@@ -66,6 +66,24 @@ public class Student {
 	public String toString() {
 		return "Student [id=" + id + ", name=" + name + ", status=" + status + "]";
 	}
+
+	@Override
+	public int compareTo(Student other) {
+		return id > other.id ? 1 : id < other.id ? -1 : 0;
+		
+		/*
+		if(id > other.id) {
+			return 1;
+		}
+		else if(id < other.id) {
+			return -1;
+		}
+		else {
+			return 0;
+		}
+		*/
+	}
+
 	
 	
 	
