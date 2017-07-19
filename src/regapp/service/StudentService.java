@@ -15,7 +15,7 @@ public class StudentService {
 
 		Student.Status status = Student.Status.valueOf(statusStr);
 		
-		Student s = new Student(id, name, status);
+		Student s = new Student(name, status);
 		
 		return createStudent(s);
 	}
@@ -41,7 +41,9 @@ public class StudentService {
 	}
 	
 	public List<Student> getStudents() {
-		return Collections.unmodifiableList(students);
+		List<Student> l2 = new ArrayList<Student>(students);
+		
+		return l2;
 	}
 
 }

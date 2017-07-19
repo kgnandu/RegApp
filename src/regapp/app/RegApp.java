@@ -10,16 +10,20 @@ public class RegApp {
 	public static void main(String[] args) {
 		StudentService service = new StudentService();
 		
-		Student s1 = new Student(0, "Jim", "FULL_TIME");
+		Student s1 = new Student("Jim", "FULL_TIME");
+		Student s2 = new Student("Jim", "FULL_TIME");
 		
-		Student s2 = service.createStudent(s1);
+		s1 = service.createStudent(s1);
+		s2 = service.createStudent(s2);
 		
 		System.out.println("new student is " + s2);
 		
 		List<Student> students = service.getStudents();
 		
-		students.add(new Student());
+		students.forEach(student -> System.out.println(student.getName() + ", " + student.getStatus().getValue()));
 		
-		System.out.println("all students " + students);
+		for(Student student : students) {
+			System.out.println(student);
+		}
 	}
 }
