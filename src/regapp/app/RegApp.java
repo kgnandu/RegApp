@@ -1,9 +1,11 @@
 package regapp.app;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import regapp.domain.Student;
 import regapp.service.StudentService;
@@ -18,7 +20,7 @@ public class RegApp {
 
 	public void go() {
 		StudentService service = new StudentService();
-
+		
 		Student s1 = new Student("Jim", "FULL_TIME");
 		Student s2 = new Student("Mohan", "HIBERNATING");
 		Student s3 = new Student("Jill", "HIBERNATING");
@@ -35,9 +37,18 @@ public class RegApp {
 		StartsWith sw = new StartsWith("M");
 		
 		List<Student> jStudents = filter(students, sw);
-
+		
 		jStudents.forEach(this::myLoggingMethod);
+		
 
+	}
+
+	public class NameComparator implements Comparator<Student> {
+
+		@Override
+		public int compare(Student o1, Student o2) {
+			return o1.getName().compareTo(o2.getName());
+		}
 	}
 
 	interface Filtered {
@@ -101,12 +112,4 @@ public class RegApp {
 		}
 	}
 	
-	public class NameComparator implements Comparator<Student> {
-
-		@Override
-		public int compare(Student o1, Student o2) {
-			return o1.getName().compareTo(o2.getName());
-		}
-
-	}
 }
