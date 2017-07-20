@@ -1,0 +1,17 @@
+- Practice Lambdas:
+
+	1) Create a Person class with a few properties
+
+	2) Make your class be sortable by a "natural order".  You can decide what
+	   that order should be.
+
+ 	3) Write a test program that creates a list of 5 person objects and test that
+	   your sort implementation works.
+
+	4) Sort your list using some order other than the natural order.  Use Lambda
+	   expressions.
+
+	5) Write a method that can filter your list based on criteria that you specify
+	   as an argument.  Use the appropriate jdk8 method to specify the filter criteria.
+
+	6) Test your filter method using lambda expressions.

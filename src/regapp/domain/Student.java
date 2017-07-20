@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Student implements Comparable<Student>{
 
 	public enum Status {
-		FULL_TIME(0), PART_TIME(1), HIBERNATING(2);
+		FULL_TIME(100), PART_TIME(1), HIBERNATING(27);
 		
 		private int value;
 		Status(int val) {

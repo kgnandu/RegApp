@@ -1,11 +1,11 @@
 package regapp.app;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 import regapp.domain.Student;
 import regapp.service.StudentService;
@@ -23,7 +23,7 @@ public class RegApp {
 		
 		Student s1 = new Student("Jim", "FULL_TIME");
 		Student s2 = new Student("Mohan", "HIBERNATING");
-		Student s3 = new Student("Jill", "HIBERNATING");
+		Student s3 = new Student("Jill", "PART_TIME");
 
 		System.out.println("new student is " + s2);
 
@@ -33,14 +33,33 @@ public class RegApp {
 
 		List<Student> students = service.getStudents();
 		
+		Collections.sort(students, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 
-		StartsWith sw = new StartsWith("M");
-		
-		List<Student> jStudents = filter(students, sw);
-		
-		jStudents.forEach(this::myLoggingMethod);
-		
 
+		//students.forEach(System.out::println);
+		//students.forEach(RegApp::myLoggingMethod);
+		
+		StartsWith sw = new StartsWith("J");
+
+		//ByStatus byStatus = new ByStatus(Student.Status.FULL_TIME);
+		
+		//List<Student> jStudents = myFilterer(students, byStatus);
+		
+		
+		Predicate<Student> byStatus = (s) -> s.getStatus() == Student.Status.FULL_TIME;
+
+		SomethingElse se = (s) -> s.getStatus() == Student.Status.FULL_TIME;
+
+		List<Student> jStudents = myFilterer(students, 
+				(s) -> s.getStatus() == Student.Status.FULL_TIME);
+
+		jStudents = myFilterer(students, 
+				(s) -> s.getName().startsWith("M"));
+	
+		
+		jStudents.forEach(RegApp::myLoggingMethod);
+		
+		
 	}
 
 	public class NameComparator implements Comparator<Student> {
@@ -51,10 +70,27 @@ public class RegApp {
 		}
 	}
 
+	interface SomethingElse {
+		public boolean someMethod(Student s);
+	}
+	
+	
 	interface Filtered {
 		public boolean filter(Student s);
 	}
 	
+	public class ByStatus implements Filtered
+	{
+		private Student.Status start;
+		public ByStatus(Student.Status start) {
+			this.start = start;
+		}
+		
+		public boolean filter(Student s) {
+			return s.getStatus() == start;
+		}
+	}
+
 	public class StartsWith implements Filtered
 	{
 		private String start;
@@ -67,10 +103,10 @@ public class RegApp {
 		}
 	}
 
-	public List<Student> filter(List<Student> students,  Filtered f) {
+	public List<Student> myFilterer(List<Student> students,  Predicate<Student> f) {
 		List<Student> jStudents = new ArrayList<>();
 		for(Student student : students) {
-			if(f.filter(student)) {
+			if(f.test(student)) {
 				jStudents.add(student);
 			}
 		}
@@ -102,7 +138,7 @@ public class RegApp {
 	}
 	
 
-	public void myLoggingMethod(Student s) {
+	public static void myLoggingMethod(Student s) {
 		System.out.println(s.getName());
 	}
 
@@ -111,5 +147,4 @@ public class RegApp {
 			System.out.println(student);
 		}
 	}
-	
 }
