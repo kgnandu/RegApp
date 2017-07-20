@@ -1,11 +1,14 @@
 package regapp.app;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import regapp.domain.Student;
 import regapp.service.StudentService;
@@ -32,6 +35,30 @@ public class RegApp {
 		service.createStudent(s2);
 
 		List<Student> students = service.getStudents();
+		
+		String [] arr = {"One", "two", "three" };
+		
+		String str = Arrays.stream(arr).collect(Collectors.joining(","));
+		System.out.println(str);
+		
+		Map<Integer, List<Student>> map = students.stream()
+				.collect(Collectors.groupingBy((Student s) -> s.getId()));
+		
+		
+		//List<String> list2 = 
+		long count = students.stream()
+				.peek(s -> System.out.println("peek1: " + s))
+				.filter(s -> s.getName().startsWith("J"))
+				.peek(s -> System.out.println("peek2: " + s))
+				.map(s -> s.getName())
+				.peek(s -> System.out.println("peek3: " + s))
+				//.sorted()
+				.peek(s -> System.out.println("peek4: " + s))
+				//.collect(Collectors.toList());
+				.collect(Collectors.counting());
+		
+		//System.out.println("list 2" + list2);
+		//System.out.println("count = " + count);
 		
 		Collections.sort(students, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 

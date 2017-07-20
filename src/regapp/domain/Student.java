@@ -25,7 +25,7 @@ public class Student implements Comparable<Student>{
 	private String name;
 	private Status status;
 	
-	private static AtomicInteger counter = new AtomicInteger(0);
+	private static int counter = 0;
 
 	public Student() {
 		super();
@@ -38,7 +38,7 @@ public class Student implements Comparable<Student>{
 	public Student(String name, Status status) {
 		super();
 		//this.id = counter++;
-		this.id = counter.getAndIncrement();
+		this.id = counter++;
 		this.name = name;
 		this.status = status;
 	}
