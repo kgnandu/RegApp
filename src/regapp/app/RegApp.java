@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -43,6 +44,9 @@ public class RegApp {
 		
 		Map<Integer, List<Student>> map = students.stream()
 				.collect(Collectors.groupingBy((Student s) -> s.getId()));
+
+		Map<Integer, Student> map2 = students.stream()
+				.collect(Collectors.toMap(s -> s.getId(), Function.identity()));
 		
 		
 		//List<String> list2 = 
